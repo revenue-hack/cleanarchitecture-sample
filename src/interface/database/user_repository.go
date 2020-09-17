@@ -36,6 +36,9 @@ func (repo *UserRepositoryImpl) FindAll() ([]*entity.User, error) {
 }
 
 func (repo *UserRepositoryImpl) FindByID(id string) (*entity.User, error) {
+	if id == "" {
+		return nil, xerrors.New("id must be not empty")
+	}
 	for _, user := range users {
 		if user.ID == id {
 			return user, nil
