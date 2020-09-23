@@ -1,8 +1,8 @@
 package userusecase
 
 import (
-	"github.com/revenue-hack/cleanarchitecture-sample/src/entity"
 	"github.com/revenue-hack/cleanarchitecture-sample/src/usecase/userusecase/input"
+	"github.com/revenue-hack/cleanarchitecture-sample/src/usecase/userusecase/output"
 	"golang.org/x/xerrors"
 )
 
@@ -16,9 +16,17 @@ func NewGetUserByID(userRepo UserRepository) *GetUserByIDUsecase {
 	}
 }
 
-func (use *GetUserByIDUsecase) Exec(in *input.GetUserByIDInput) (*entity.User, error) {
+func (use *GetUserByIDUsecase) Exec(in *input.GetUserByIDInput) (*output.UserByID, error) {
 	if in.ID == "" {
 		return nil, xerrors.New("id must be not empty")
 	}
-	return use.userRepository.FindByID(in.ID)
+	user, err := use.userRepository.FindByID(in.ID)
+	if err != nil {
+		return nil, err
+	}
+	return &output.UserByID{
+		ID:        user.ID(),
+		FirstName: user.FirstName(),
+		LastName:  user.LastName(),
+	}, nil
 }
