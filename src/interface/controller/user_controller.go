@@ -10,13 +10,13 @@ import (
 type UserController struct{}
 
 func (c *UserController) GetUserList() ([]*entity.User, error) {
-	userRepo := database.NewUserrepositoryImpl()
+	userRepo := database.NewUserRepositoryImpl()
 	usecase := userusecase.NewGetUserList(userRepo)
 	return usecase.Exec()
 }
 
 func (c *UserController) GetUserByID(in *input.GetUserByIDInput) (*entity.User, error) {
-	userRepo := database.NewUserrepositoryImpl()
+	userRepo := database.NewUserRepositoryImpl()
 	usecase := userusecase.NewGetUserByID(userRepo)
 	return usecase.Exec(in)
 }

@@ -7,27 +7,18 @@ import (
 
 type UserRepositoryImpl struct{}
 
-func NewUserrepositoryImpl() *UserRepositoryImpl {
+func NewUserRepositoryImpl() *UserRepositoryImpl {
 	return &UserRepositoryImpl{}
 }
 
 var (
+	u1, _ = entity.NewUser("1", "user1", "lastuser1")
+	u2, _ = entity.NewUser("2", "user2", "lastuser2")
+	u3, _ = entity.NewUser("3", "user3", "lastuser3")
 	users = []*entity.User{
-		{
-			ID:        "1",
-			FirstName: "user1",
-			LastName:  "lastuser1",
-		},
-		{
-			ID:        "2",
-			FirstName: "user2",
-			LastName:  "lastuser2",
-		},
-		{
-			ID:        "3",
-			FirstName: "user3",
-			LastName:  "lastuser3",
-		},
+		u1,
+		u2,
+		u3,
 	}
 )
 
@@ -40,7 +31,7 @@ func (repo *UserRepositoryImpl) FindByID(id string) (*entity.User, error) {
 		return nil, xerrors.New("id must be not empty")
 	}
 	for _, user := range users {
-		if user.ID == id {
+		if user.ID() == id {
 			return user, nil
 		}
 	}
