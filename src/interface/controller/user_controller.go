@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"github.com/revenue-hack/cleanarchitecture-sample/src/interface/database"
 	"github.com/revenue-hack/cleanarchitecture-sample/src/interface/presenter"
 	"github.com/revenue-hack/cleanarchitecture-sample/src/usecase/userusecase"
 	"github.com/revenue-hack/cleanarchitecture-sample/src/usecase/userusecase/input"
@@ -9,10 +8,10 @@ import (
 
 type userController struct {
 	delivery presenter.UserPresenter
-	userRepo *database.UserRepositoryImpl
+	userRepo userusecase.UserRepository
 }
 
-func NewUserController(p presenter.UserPresenter, userRepo *database.UserRepositoryImpl) *userController {
+func NewUserController(p presenter.UserPresenter, userRepo userusecase.UserRepository) *userController {
 	return &userController{
 		delivery: p,
 		userRepo: userRepo,
