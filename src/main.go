@@ -8,8 +8,6 @@ import (
 	"github.com/revenue-hack/cleanarchitecture-sample/src/infra/router"
 )
 
-//go:generate mockgen -source ./usecase/userusecase/user_repository.go -destination ./mock/mock_userusecase/user_repository_mock.go
-
 func main() {
 	userRouter, err := router.NewUserRouter()
 	if err != nil {
