@@ -13,14 +13,14 @@ func NewUserPresenter(p Presenter) UserPresenter {
 }
 
 type UserPresenter interface {
-	UserList(out *output.UserList) error
-	UserByID(out *output.UserByID) error
+	UserList(out *output.UserList)
+	UserByID(out *output.UserByID)
 }
 
-func (p *userPresent) UserList(out *output.UserList) error {
-	return p.delivery.WriteJson(out)
+func (p *userPresent) UserList(out *output.UserList) {
+	p.delivery.JSON(200, out)
 }
 
-func (p *userPresent) UserByID(out *output.UserByID) error {
-	return p.delivery.WriteJson(out)
+func (p *userPresent) UserByID(out *output.UserByID) {
+	p.delivery.JSON(200, out)
 }

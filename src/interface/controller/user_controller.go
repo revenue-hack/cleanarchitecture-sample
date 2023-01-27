@@ -27,7 +27,8 @@ func (c *userController) GetUserList(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	return c.delivery.UserList(out)
+	c.delivery.UserList(out)
+	return nil
 
 }
 
@@ -37,5 +38,6 @@ func (c *userController) GetUserByID(ctx context.Context, in *input.GetUserByIDI
 	if err != nil {
 		return err
 	}
-	return c.delivery.UserByID(out)
+	c.delivery.UserByID(out)
+	return nil
 }
