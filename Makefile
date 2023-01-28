@@ -10,3 +10,5 @@ build:
 
 start:
 	./sample
+run:
+	go run ./src/cmd/main.go

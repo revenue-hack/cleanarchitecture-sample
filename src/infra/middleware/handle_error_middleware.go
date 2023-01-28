@@ -17,8 +17,8 @@ func HandleErrorMiddleware() gin.HandlerFunc {
 		if err != nil {
 			switch e := err.Err.(type) {
 			case smperr.AppError:
-				log.Printf("ERROR: %+v", err)
-				ctx.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
+				log.Printf("ERROR: %+v", e.Trace())
+				ctx.AbortWithStatusJSON(e.Code(), gin.H{
 					"message": fmt.Sprintf("%d: %s", e.Code(), e.Msg()),
 				})
 			default:

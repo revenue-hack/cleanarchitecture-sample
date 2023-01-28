@@ -5,7 +5,6 @@ import (
 
 	"github.com/revenue-hack/cleanarchitecture-sample/src/domain/user"
 	"github.com/revenue-hack/cleanarchitecture-sample/src/interface/presenter"
-	"github.com/revenue-hack/cleanarchitecture-sample/src/support/smperr"
 	"github.com/revenue-hack/cleanarchitecture-sample/src/usecase/userusecase"
 	"github.com/revenue-hack/cleanarchitecture-sample/src/usecase/userusecase/input"
 )
@@ -28,7 +27,6 @@ func (c *userController) GetUserList(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	return smperr.BadRequestf("ああああ: %+v", 1)
 	c.delivery.UserList(out)
 	return nil
 
