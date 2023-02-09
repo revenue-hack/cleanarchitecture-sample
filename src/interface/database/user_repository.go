@@ -15,9 +15,9 @@ func NewUserRepositoryImpl() *UserRepositoryImpl {
 }
 
 var (
-	u1, _ = user.NewUser("1", "user1", "lastuser1")
-	u2, _ = user.NewUser("2", "user2", "lastuser2")
-	u3, _ = user.NewUser("3", "user3", "lastuser3")
+	u1, _ = user.GenForTest(id.NewUserID(), "user1", "lastuser1")
+	u2, _ = user.GenForTest(id.NewUserID(), "user2", "lastuser2")
+	u3, _ = user.GenForTest(id.NewUserID(), "user3", "lastuser3")
 	users = []*user.User{
 		u1,
 		u2,

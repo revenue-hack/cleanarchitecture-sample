@@ -25,7 +25,8 @@ func Test_GetUserByIDExec(t *testing.T) {
 		t.Error(err)
 		return
 	}
-	user1, _ := user.NewUser(inputUserID, "firstName", "lastName")
+	// TODO: エラーチェック
+	user1, _ := user.GenForTest(inputUserID, "firstName", "lastName")
 
 	userRepo := mock_user.NewMockUserRepository(ctrl)
 	userRepo.EXPECT().FindByID(ctx, inputUserID).Return(user1, nil)
