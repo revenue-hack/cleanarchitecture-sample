@@ -41,3 +41,13 @@ func (c *userController) GetUserByID(ctx context.Context, in *userinput.GetUserB
 	c.delivery.UserByID(out)
 	return nil
 }
+
+func (c *userController) CreateUser(ctx context.Context, in *userinput.CreateUserInput) error {
+	usecase := userusecase.NewCreateUser(c.userRepo)
+	out, err := usecase.Exec(ctx, in)
+	if err != nil {
+		return err
+	}
+	c.delivery.Create(out)
+	return nil
+}

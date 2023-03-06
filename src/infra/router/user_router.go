@@ -35,4 +35,20 @@ func NewUserRouter(g *gin.Engine) {
 			return
 		}
 	})
+
+	g.POST("/users", func(ctx *gin.Context) {
+		var in userinput.CreateUserInput
+		if err := ctx.ShouldBindJSON(&in); err != nil {
+			ctx.JSON(400, gin.H{"status": "bad request"})
+			return
+		}
+
+		userRepoImpl := database.NewUserRepositoryImpl()
+		err := controller.NewUserController(presenter.NewUserPresenter(ctx), userRepoImpl).CreateUser(ctx, &in)
+		if err != nil {
+			ctx.Error(err)
+			return
+		}
+
+	})
 }

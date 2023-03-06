@@ -29,7 +29,6 @@ func (repo *UserRepositoryImpl) FindAll(ctx context.Context) ([]*userdm.User, er
 }
 
 func (repo *UserRepositoryImpl) FindByID(ctx context.Context, id userdm.UserID) (*userdm.User, error) {
-
 	for _, u := range users {
 		if u.ID().Equal(id) {
 			return u, nil
@@ -38,6 +37,6 @@ func (repo *UserRepositoryImpl) FindByID(ctx context.Context, id userdm.UserID) 
 	return nil, xerrors.Errorf("userdm is not found: %s", id)
 }
 func (repo *UserRepositoryImpl) Store(ctx context.Context, user *userdm.User) error {
-	// 保存書処理
+	// DBの保存書処理
 	return nil
 }
