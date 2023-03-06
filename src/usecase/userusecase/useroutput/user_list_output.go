@@ -1,4 +1,4 @@
-package output
+package useroutput
 
 type UserList struct {
 	Users []*UserItem `json:"users"`

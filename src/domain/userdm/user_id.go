@@ -1,4 +1,4 @@
-package id
+package userdm
 
 import (
 	"github.com/google/uuid"
@@ -12,7 +12,7 @@ func NewUserID() UserID {
 }
 func NewUserIDByVal(val string) (UserID, error) {
 	if val == "" {
-		return UserID(""), xerrors.New("user id must not be empty")
+		return UserID(""), xerrors.New("userdm id must not be empty")
 	}
 	return UserID(val), nil
 }

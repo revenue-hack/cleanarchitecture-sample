@@ -5,7 +5,7 @@ import (
 	"github.com/revenue-hack/cleanarchitecture-sample/src/interface/controller"
 	"github.com/revenue-hack/cleanarchitecture-sample/src/interface/database"
 	"github.com/revenue-hack/cleanarchitecture-sample/src/interface/presenter"
-	"github.com/revenue-hack/cleanarchitecture-sample/src/usecase/userusecase/input"
+	"github.com/revenue-hack/cleanarchitecture-sample/src/usecase/userusecase/userinput"
 )
 
 func NewUserRouter(g *gin.Engine) {
@@ -27,7 +27,7 @@ func NewUserRouter(g *gin.Engine) {
 			return
 		}
 
-		in := input.GetUserByIDInput{ID: req.ID}
+		in := userinput.GetUserByIDInput{ID: req.ID}
 		userRepoImpl := database.NewUserRepositoryImpl()
 		err := controller.NewUserController(presenter.NewUserPresenter(ctx), userRepoImpl).GetUserByID(ctx, &in)
 		if err != nil {

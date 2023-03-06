@@ -1,7 +1,6 @@
-package output
+package userinput
 
-type UserByID struct {
-	ID        string `json:"id"`
+type CreateUserInput struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
 }

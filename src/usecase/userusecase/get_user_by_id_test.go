@@ -5,28 +5,27 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	"github.com/revenue-hack/cleanarchitecture-sample/src/domain/id"
-	"github.com/revenue-hack/cleanarchitecture-sample/src/domain/user"
+	"github.com/revenue-hack/cleanarchitecture-sample/src/domain/userdm"
 	"github.com/revenue-hack/cleanarchitecture-sample/src/mock/mock_user"
 	"github.com/revenue-hack/cleanarchitecture-sample/src/usecase/userusecase"
-	"github.com/revenue-hack/cleanarchitecture-sample/src/usecase/userusecase/input"
+	"github.com/revenue-hack/cleanarchitecture-sample/src/usecase/userusecase/userinput"
 )
 
 var (
-	in  = input.GetUserByIDInput{ID: "userid1"}
+	in  = userinput.GetUserByIDInput{ID: "userid1"}
 	ctx = context.TODO()
 )
 
 func Test_GetUserByIDExec(t *testing.T) {
 	ctrl := gomock.NewController(t)
 
-	inputUserID, err := id.NewUserIDByVal(in.ID)
+	inputUserID, err := userdm.NewUserIDByVal(in.ID)
 	if err != nil {
 		t.Error(err)
 		return
 	}
 	// TODO: エラーチェック
-	user1, _ := user.GenForTest(inputUserID, "firstName", "lastName")
+	user1, _ := userdm.GenForTest(inputUserID, "firstName", "lastName")
 
 	userRepo := mock_user.NewMockUserRepository(ctrl)
 	userRepo.EXPECT().FindByID(ctx, inputUserID).Return(user1, nil)

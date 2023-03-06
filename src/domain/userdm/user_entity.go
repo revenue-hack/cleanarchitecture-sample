@@ -1,21 +1,20 @@
-package user
+package userdm
 
 import (
 	"unicode/utf8"
 
-	"github.com/revenue-hack/cleanarchitecture-sample/src/domain/id"
 	"github.com/revenue-hack/cleanarchitecture-sample/src/domain/shared"
 	"golang.org/x/xerrors"
 )
 
 type User struct {
-	id        id.UserID
+	id        UserID
 	firstName string
 	lastName  string
 	createdAt shared.CreatedAt
 }
 
-func (u *User) ID() id.UserID {
+func (u *User) ID() UserID {
 	return u.id
 }
 func (u *User) FirstName() string {
@@ -24,13 +23,16 @@ func (u *User) FirstName() string {
 func (u *User) LastName() string {
 	return u.lastName
 }
+func (u *User) CreatedAt() shared.CreatedAt {
+	return u.createdAt
+}
 
 var (
 	firstNameLength = 30
 	lastNameLength  = 30
 )
 
-func newUser(id id.UserID, first, last string, createdAt shared.CreatedAt) (*User, error) {
+func newUser(id UserID, first, last string, createdAt shared.CreatedAt) (*User, error) {
 	if first == "" {
 		return nil, xerrors.New("first name must be not empty")
 	}
