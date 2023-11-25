@@ -12,6 +12,7 @@ type User struct {
 	firstName string
 	lastName  string
 	createdAt shared.CreatedAt
+	updatedAt shared.UpdatedAt
 }
 
 func (u *User) ID() UserID {
@@ -32,19 +33,35 @@ var (
 	lastNameLength  = 30
 )
 
-func newUser(id UserID, first, last string, createdAt shared.CreatedAt) (*User, error) {
+func validateFirstName(first string) error {
 	if first == "" {
-		return nil, xerrors.New("first name must be not empty")
+		return xerrors.New("first name must be not empty")
 	}
-	if last == "" {
-		return nil, xerrors.New("last name must be not empty")
+	if l := utf8.RuneCountInString(first); l > firstNameLength {
+		return xerrors.Errorf("first name must be less than %d", firstNameLength)
 	}
 
-	if l := utf8.RuneCountInString(first); l > firstNameLength {
-		return nil, xerrors.Errorf("first name must be less than %d", firstNameLength)
+	return nil
+}
+
+func validateLastName(last string) error {
+	if last == "" {
+		return xerrors.New("last name must be not empty")
 	}
+
 	if l := utf8.RuneCountInString(last); l > lastNameLength {
-		return nil, xerrors.Errorf("last name must be less than %d", lastNameLength)
+		return xerrors.Errorf("last name must be less than %d", lastNameLength)
+	}
+
+	return nil
+}
+
+func newUser(id UserID, first, last string, createdAt shared.CreatedAt) (*User, error) {
+	if err := validateFirstName(first); err != nil {
+		return nil, err
+	}
+	if err := validateLastName(last); err != nil {
+		return nil, err
 	}
 
 	return &User{
@@ -53,4 +70,19 @@ func newUser(id UserID, first, last string, createdAt shared.CreatedAt) (*User, 
 		lastName:  last,
 		createdAt: createdAt,
 	}, nil
+}
+
+func (u *User) Update(first, last string) error {
+	if err := validateFirstName(first); err != nil {
+		return err
+	}
+	if err := validateLastName(last); err != nil {
+		return err
+	}
+
+	u.firstName = first
+	u.lastName = last
+	u.updatedAt = shared.NewUpdatedAt()
+
+	return nil
 }
